@@ -1,5 +1,6 @@
 ﻿var normalColor = Console.ForegroundColor;
 
+
 if (args.Length < 1)
 {
     Console.ForegroundColor = ConsoleColor.Red;
@@ -10,8 +11,12 @@ if (args.Length < 1)
 
 var path = args[0];
 
+string absolutePath = Path.GetFullPath(path);
 
-var repos = PushMonitor.CheckReposStatus(path);
+Console.WriteLine($"Scanning {absolutePath} for Git repositories...");
+Console.WriteLine();
+
+var repos = PushMonitor.CheckReposStatus(absolutePath);
 
 bool somethingFound = false;
 foreach (var repo in repos)
@@ -31,16 +36,20 @@ foreach (var repo in repos)
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
         Console.WriteLine($"{repo.Path} : {repo.Status}");
     }
 }
 
 if (somethingFound)
+{
     Console.WriteLine();
+}
 else
 {
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("Nothing to push.");
+    Console.WriteLine();
 }
 
 Console.ForegroundColor = normalColor;
