@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PushMonitor": {
+      "commandName": "Project",
+      "commandLineArgs": "../../../../"
+    }
+  }
+}
